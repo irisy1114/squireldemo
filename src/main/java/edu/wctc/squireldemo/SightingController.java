@@ -1,5 +1,6 @@
 package edu.wctc.squireldemo;
 
+import edu.wctc.squireldemo.entity.Location;
 import edu.wctc.squireldemo.entity.Sighting;
 import edu.wctc.squireldemo.entity.Squirrel;
 import edu.wctc.squireldemo.service.LocationService;
@@ -39,7 +40,22 @@ public class SightingController {
     }
 
     @PostMapping("/save")
-    public String saveSighting() {
+    public String saveSighting(@RequestParam("id") String idString, Model model) {
+
+        int squirrelId = 0;
+        try {
+            squirrelId = Integer.parseInt(idString);
+        } catch (NumberFormatException e) {
+            squirrelId = 1;
+        }
+        // get squirrel object with matching ID
+        Squirrel squirrel = squirrelService.getSquirrel(squirrelId);
+        model.addAttribute("squirrelObj",squirrel );
+
+        // get list of locations and add to model
+        List<Location> list = locationService.getLocationList();
+        model.addAttribute("locationList", list);
+
         return "confirmation";
     }
 
