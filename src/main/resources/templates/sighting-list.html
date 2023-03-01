@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="~{frags :: head('Recent Sightings')}"></head>
 <body>
+<header th:replace="~{frags :: logo}"></header>
+
+<h3 th:text="|Recent sightings of ${commonName}|">COMMON NAME</h3>
+
+<table>
+    <tr>
+        <th>Spotted By</th>
+        <th>At</th>
+        <th>On</th>
+        <th>Number Spotted</th>
+    </tr>
+    <tr th:each="sighting : ${sightingList}">
+        <td th:text="${sighting.spotterName}">SPOTTER NAME</td>
+        <td th:text="|${sighting.location.name} (${sighting.location.country})|">LOCATION</td>
+        <td th:text="${sighting.spottedAt}">DATE</td>
+        <td th:text="${sighting.count}">COUNT</td>
+    </tr>
+</table>
+
+<h3><a th:href="@{/list}">Back to List</a></h3>
 
 </body>
 </html>
