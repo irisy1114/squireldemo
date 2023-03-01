@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head th:fragment="head(pageTitle)">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">TITLE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto&display=swap" rel="stylesheet">
+  <link type="text/css"rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header th:fragment="logo">
+  <a th:href="@{/}">
+    <img th:src="@{/img/logo.png}" alt="24/7 SquirrelWatch Logo">
+    <h1>24/7 SquirrelWatch</h1>
+  </a>
+  <h2>Tracking Sighting for Fun and Science</h2>
+</header>
+</body>
+</html>
