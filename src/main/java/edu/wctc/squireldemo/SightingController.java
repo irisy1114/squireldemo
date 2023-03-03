@@ -48,7 +48,7 @@ public class SightingController {
 
         Sighting newSighting = new Sighting();
         newSighting.setSquirrelId(squirrel.getId());
-        newSighting.setSpotterName("Iris");
+//        newSighting.setSpotterName("Iris");
         model.addAttribute("theSighting", newSighting);
 
         return "sighting-form";
@@ -56,13 +56,12 @@ public class SightingController {
 
     @GetMapping("/list")
     public String showSquirrelList(Model model) {
-        model.addAttribute("squirrelList",
-                squirrelService.getSquirrelList());
+        model.addAttribute("squirrelList", squirrelService.getSquirrelList());
         return "squirrel-list";
     }
 
     @PostMapping("/save")
-    public String saveSighting(@Valid @ModelAttribute Sighting sighting,
+    public String saveSighting(@Valid @ModelAttribute("theSighting") Sighting sighting,
                                BindingResult bindingResult, Model model) {
         // check if validation is passing
         if (bindingResult.hasErrors()) {
@@ -83,6 +82,15 @@ public class SightingController {
             // save the sighting to the db
             // send them to the confirmation page
             sightingService.saveSighting(sighting);
+
+            // get squirrel with matching ID and add to model
+            Squirrel squirrel = squirrelService.getSquirrel(sighting.getSquirrelId());
+            model.addAttribute("commonName", squirrel.getCommonName());
+
+            // get sightings with matching squirrel ID and add to model
+            List<Sighting> list = sightingService.getSightingsForSquirrel(sighting.getSquirrelId());
+            model.addAttribute("sightingList", list);
+
             return "confirmation";
         }
     }

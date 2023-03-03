@@ -12,8 +12,8 @@
 
     <form method="post" th:action="@{/save}" th:object="${theSighting}">
         <input type="hidden" th:field="*{squirrelId}">
-
         <label for="spotter">Name of Spotter</label>
+        <span th:if="${#fields.hasErrors('spotterName')}" th:errors="*{spotterName}" class="error">ERROR</span>
 
         <br>
         <input type="text" id="spotter" th:field="*{spotterName}">
@@ -33,6 +33,7 @@
         <label for="count">How many did you spot?</label>
         <br>
         <input type="number" id="count" th:field="*{count}">
+        <span class="error" th:if="${#fields.hasErrors('count')}" th:errors="*{count}">ERROR</span>
 
         <br>
 

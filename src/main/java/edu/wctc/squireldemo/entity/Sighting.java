@@ -15,6 +15,7 @@ public class Sighting {
 
     @Id
     @Column(name="sighting_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="spotter_name")
@@ -28,7 +29,6 @@ public class Sighting {
     private int count;
 
     @Column(name="spotted_at")
-    @Past
     private LocalDateTime spottedAt;
 
     @Column(name="sq_id")
