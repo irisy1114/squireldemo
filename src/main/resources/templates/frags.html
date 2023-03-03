@@ -26,7 +26,7 @@
         <tr th:each="sighting : ${sightingList}">
             <td th:text="${sighting.spotterName}">SPOTTER NAME</td>
             <td th:text="|${sighting.location.name} (${sighting.location.country})|">LOCATION</td>
-            <td th:text="${sighting.spottedAt}">DATE</td>
+            <td th:text="${#temporals.format(sighting.spottedAt, 'MMM dd yyy hh:mm a')}">DATE</td>
             <td th:text="${sighting.count}">COUNT</td>
         </tr>
     </table>

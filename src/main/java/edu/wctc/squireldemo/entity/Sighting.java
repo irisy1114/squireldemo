@@ -1,6 +1,7 @@
 package edu.wctc.squireldemo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,12 +18,17 @@ public class Sighting {
     private int id;
 
     @Column(name="spotter_name")
+    @NotBlank
+    @Size(min=1, max=200)
     private String spotterName;
 
     @Column(name="count")
+    @Min(1)
+    @Max(20)
     private int count;
 
     @Column(name="spotted_at")
+    @Past
     private LocalDateTime spottedAt;
 
     @Column(name="sq_id")
